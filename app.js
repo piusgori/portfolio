@@ -1,18 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const keys = require('./private/keys');
+const bodyParder = require('body-parser');
+const path = require('path');
 
 const mainRoute = require('./routes/main-route');
 
 const app = express();
 
-const mongoUrl = `mongodb+srv://pius_gori:${process.env.MONGO_DB_PASSWORD || keys.mongoPassword}@piuscluster.wvoqx.mongodb.net/piuskimsey?retryWrites=true&w=majority`;
+app.use(bodyParder.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(mainRoute);
 
-mongoose.connect(mongoUrl).then(res => {
-    app.listen(3000)
-}
-).catch(err => {
-    console.log(err)
-})
+app.listen(process.env.PORT || 3000)

@@ -3,6 +3,7 @@ const path = require('path');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const sendgrid = require('nodemailer-sendgrid-transport');
+const fs = require('fs');
 
 const transporter = nodemailer.createTransport(sendgrid({ auth: { api_key: process.env.sendgridKey } }))
 
@@ -39,6 +40,11 @@ router.post('/contact', (req, res, next) => {
         `
     })
     res.sendFile(path.join(__dirname, '../', 'views', 'thankyou.html'));
+});
+
+router.get('/resume', (req, res, next) => {
+    const setPath = path.join(__dirname, '../', 'public', 'curriculum-vitae.docx');
+    res.download(setPath);
 })
 
 

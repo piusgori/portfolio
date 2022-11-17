@@ -43,7 +43,7 @@ router.post('/contact', (req, res, next) => {
 });
 
 router.get('/resume', (req, res, next) => {
-    const setPath = path.join(__dirname, '../', 'public', 'curriculum-vitae.docx');
+    const setPath = path.join(__dirname, '../', 'public', 'resume.pdf');
     res.download(setPath);
 })
 
